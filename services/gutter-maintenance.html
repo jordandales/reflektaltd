@@ -16,7 +16,9 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Barlow', sans-serif; color: var(--text); background: var(--white); }
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; padding: 0 5vw; background: var(--navy); }
-  .nav-logo-text { color: white; font-weight: 700; }
+  .nav-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+  .nav-logo img { height: 40px; width: auto; object-fit: contain; }
+  .nav-logo-text { color: white; font-weight: 700; font-family: 'Barlow Condensed', sans-serif; }
   .nav-links { display: flex; align-items: center; gap: 1.75rem; list-style: none; }
   .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; }
   .nav-cta { background: var(--sky); color: white; padding: 0.55rem 1.2rem; border-radius: 3px; text-decoration: none; }
@@ -40,7 +42,10 @@
 </head>
 <body>
     <nav id="navbar">
-      <a href="/" class="nav-logo"><div class="nav-logo-text">Reflekta <span>Ltd</span></div></a>
+      <a href="/" class="nav-logo">
+        <img src="data:image/jpeg;base64,/9j/..." alt="Reflekta Ltd">
+        <div class="nav-logo-text">Reflekta <span>Ltd</span></div>
+      </a>
       <ul class="nav-links" id="navLinks">
         <li><a href="/">Home</a></li>
         <li><a href="/services/window-cleaning.html">Window Cleaning</a></li>
