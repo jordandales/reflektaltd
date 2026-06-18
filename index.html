@@ -845,5 +845,32 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     });
   }
 </script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"></script>
+
+<script>
+window.addEventListener("load", function(){
+window.cookieconsent.initialise({
+palette: {
+popup: {
+background: "#000"
+},
+button: {
+background: "#25D366"
+}
+},
+theme: "classic",
+content: {
+message: "This website uses cookies to improve your experience.",
+dismiss: "Accept",
+link: "Privacy Policy",
+href: "/privacy-policy.html"
+}
+})
+});
+</script>
+
 </body>
 </html>
