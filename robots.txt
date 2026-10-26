@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://reflektaltd.co.uk/sitemap.xml
