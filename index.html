@@ -444,6 +444,20 @@
     margin-top: 0.5rem;
   }
   .form-submit:hover { background: var(--sky); }
+  .form-gotcha,
+  .form-gotcha input {
+    display: none !important;
+  }
+  .form-notice {
+    margin: 0;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid var(--navy);
+    border-radius: 3px;
+    background: var(--off);
+    color: var(--navy);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
   .contact-details { margin-top: 2rem; display: flex; flex-direction: column; gap: 0.85rem; }
   .contact-row {
     display: flex; align-items: flex-start; gap: 0.75rem;
@@ -973,6 +987,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <form class="quote-form" id="quoteForm" action="https://formspree.io/f/xkoppywr" method="POST">
           <input type="hidden" name="_subject" value="New quote request — Reflekta Ltd">
           <input type="hidden" name="_replyto" value="">
+          <div class="form-gotcha" aria-hidden="true">
+            <label for="gotcha">Leave this field blank</label>
+            <input id="gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+          </div>
           <div class="form-row">
             <div class="field">
               <label for="first_name">First name</label>
@@ -985,7 +1003,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="field">
             <label for="phone">Phone number</label>
-            <input id="phone" type="tel" name="phone" autocomplete="tel" placeholder="07700 000000" required>
+            <input id="phone" type="tel" name="phone" autocomplete="tel" placeholder="07700 000000" required pattern="\s*(?:(?:\+44|0044)[\s\-\(\).]*0?[\s\-\(\).]*|[\s\-\(\).]*0)(?:7(?:[\s\-\(\).]*\d){9}|[123](?:[\s\-\(\).]*\d){8,9})\s*" title="Enter a UK phone number, such as 07377 987124.">
           </div>
           <div class="field">
             <label for="email">Email address</label>
@@ -1011,6 +1029,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <label for="message">Anything else we should know?</label>
             <textarea id="message" name="message" placeholder="e.g. 3-bed semi, first floor windows only, etc."></textarea>
           </div>
+          <p id="formNotice" class="form-notice" hidden></p>
           <button type="submit" class="form-submit" id="formSubmit">Send Quote Request</button>
         </form>
       </div>
