@@ -41,6 +41,78 @@
     });
   });
 
+  var quoteForm = document.getElementById("quoteForm");
+  if (quoteForm) {
+    var phoneInput = quoteForm.querySelector('[name="phone"]');
+    var messageInput = quoteForm.querySelector('[name="message"]');
+    var formNotice = document.getElementById("formNotice");
+    var formReadyAt = Date.now();
+    var phoneMessage = "Enter a UK phone number, such as 07377 987124.";
+
+    function isUkPhone(value) {
+      var compact = String(value).replace(/[\s\-().]/g, "");
+      if (/^(?:\+|00)44/.test(compact)) {
+        compact = "0" + compact.replace(/^(?:\+|00)44/, "").replace(/^0/, "");
+      }
+      if (!/^0[1237]\d{8,9}$/.test(compact)) return false;
+      if (compact.charAt(1) === "7") return compact.length === 11;
+      return true;
+    }
+
+    function applyPhoneValidity() {
+      if (!phoneInput) return true;
+      if (phoneInput.value.trim() === "") {
+        phoneInput.setCustomValidity("");
+        return false;
+      }
+      if (!isUkPhone(phoneInput.value)) {
+        phoneInput.setCustomValidity(phoneMessage);
+        return false;
+      }
+      phoneInput.setCustomValidity("");
+      return true;
+    }
+
+    if (phoneInput) {
+      phoneInput.addEventListener("input", function () {
+        phoneInput.setCustomValidity("");
+      });
+      phoneInput.addEventListener("invalid", function () {
+        phoneInput.setCustomValidity(phoneInput.validity.valueMissing
+          ? "Enter your phone number."
+          : phoneMessage);
+      });
+    }
+
+    quoteForm.addEventListener("submit", function (event) {
+      if (!applyPhoneValidity()) {
+        event.preventDefault();
+        if (phoneInput) phoneInput.reportValidity();
+        return;
+      }
+
+      var message = messageInput ? messageInput.value : "";
+      var tooFast = Date.now() - formReadyAt < 3000;
+      var hasLink = /https?:\/\/|www\./i.test(message);
+      if (!tooFast && !hasLink) {
+        if (formNotice) formNotice.hidden = true;
+        return;
+      }
+
+      event.preventDefault();
+      if (!formNotice) return;
+      formNotice.hidden = false;
+      formNotice.setAttribute("role", "alert");
+      if (tooFast && hasLink) {
+        formNotice.textContent = "Please wait a few seconds, take any web links out of the message, and send it again.";
+      } else if (tooFast) {
+        formNotice.textContent = "Please take a moment to check your details, then send the form again.";
+      } else {
+        formNotice.textContent = "Please take any web links out of the message and try again. Call or email us if you need to share a link.";
+      }
+    });
+  }
+
   var jobs = Array.isArray(window.REFLEKTA_GALLERY)
     ? window.REFLEKTA_GALLERY.filter(function (job) { return job && job.before && job.after; })
     : [];
